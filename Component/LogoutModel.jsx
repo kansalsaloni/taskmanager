@@ -1,10 +1,15 @@
 import React from 'react'
 import '../Style/LogoutModelStyle.css';
+import { useNavigate } from 'react-router-dom';
 
 
 function LogoutModel({openLogoutPopup,setOpenLogoutPopup,title}) {
+  const navigate=useNavigate();
     const handleLogout = async () => {
-        setOpenLogoutPopup(false)
+      setOpenLogoutPopup(false);
+      localStorage.removeItem('token');
+alert('logout successfluuy')     ;
+ navigate('/');
     }
   return (
     <div className='logout-container-overlay'>

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../Style/login.css';
 import Image from '../assets/LoginArtImage.svg';
 import LoginForm from '../Component/LoginForm';
 import RegisterForm from '../Component/RegisterForm';
 
 function Login() {
+  const[showRegisterForm,setShowRegisterForm]=useState(true);
   return (
     <div className='main-container'>
       <div className='container-left'>
@@ -14,7 +15,14 @@ function Login() {
       </div>
 
       <div className='container-right'>
-        <RegisterForm />
+        {showRegisterForm &&(
+        <RegisterForm setShowRegisterForm={setShowRegisterForm} showRegisterForm={showRegisterForm}/>
+        )
+}
+{!showRegisterForm &&(
+        <LoginForm setShowRegisterForm={setShowRegisterForm} showRegisterForm={showRegisterForm}/>
+        )
+}
       </div>
     </div>
   )

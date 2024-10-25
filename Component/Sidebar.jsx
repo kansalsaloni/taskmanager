@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import LogoutModel from "./LogoutModel";
 
-function Sidebar() {
+function Sidebar({selectedPage, setSelectedPage}) {
 const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
 
   return (
@@ -20,21 +20,24 @@ const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
         <h2>Pro Manage</h2>
       </div>
         <div
-          className='sidebar-item'
+          className={`sidebar-item ${selectedPage==='dashboard'?'active':''}`}
+          onClick={()=>setSelectedPage('dashboard')}
         >
           <img src={BoardImage} alt="Board" />
           <p >Board</p>
         </div>
 
         <div
-          className='sidebar-item'
+          className={`sidebar-item ${selectedPage==='analytic'?'active':''}`}
+          onClick={()=>setSelectedPage('analytic')}
         >
           <img src={AnalyticImage} alt="Analytic" />
           <p>Analytics</p>
         </div>
 
         <div
-          className='sidebar-item'
+          className={`sidebar-item ${selectedPage==='setting'?'active':''}`}
+          onClick={()=>setSelectedPage('setting')}
         >
           <img src={SettingImage} alt="Setting" />
           <p >Settings</p>

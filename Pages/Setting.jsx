@@ -11,13 +11,13 @@ function Setting() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
   
     const [error, setError] = useState({
       nameErr: "",
       emailErr: "",
       passwordErr: "",
-      confirmPasswordErr: "",
+      newPasswordErr: "",
     });
   
   
@@ -38,7 +38,7 @@ function Setting() {
           <FontAwesomeIcon icon={faUser} />
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Name"
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
@@ -49,7 +49,7 @@ function Setting() {
           <FontAwesomeIcon icon={faEnvelope} />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Update Email"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -61,7 +61,7 @@ function Setting() {
           <FontAwesomeIcon icon={faLock} />
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="Old Password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -72,9 +72,9 @@ function Setting() {
           <div className='input-container'>
           <FontAwesomeIcon icon={faLock} />
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              type={newPassword ? "text" : "password"}
+              placeholder="New Password"
+              onChange={(e) => setNewPassword(e.target.value)}
             />
             <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
           </div>
