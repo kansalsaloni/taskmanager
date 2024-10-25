@@ -1,3 +1,4 @@
+import { BrowserRouter ,Route,Routes} from 'react-router-dom';
 import Analytic from './Pages/Analytic';
 import Dashboard from './Pages/Dashboard';
 import Home from './Pages/Home';
@@ -10,7 +11,12 @@ import './Style//App.css';
 function App() {
   return (
     <div className="App">
-      <Dashboard />
+      <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/dashboard' element={<Home />} />
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
