@@ -17,8 +17,12 @@ const handleEditTask=(id)=>{
 useEffect(() => {
   setShowChecklistData(!collapseAllChecklists);
 }, [collapseAllChecklists]);
-const taskType=['PROGRESS','TODO','DONE','BACKLOG']
+
+const taskType=['PROGRESS','TODO','DONE','BACKLOG'];
+
   return (
+    <>
+    {task?.map((task) => (
     <div className='task-card-container'>
     <div className='task-card-priority-container'>
       <div className='task-card-priority'>
@@ -63,8 +67,8 @@ const taskType=['PROGRESS','TODO','DONE','BACKLOG']
 {addTaskModal&&(<AddTaskModel
           addTaskModal={addTaskModal}
           setAddTaskModal={setAddTaskModal}
-          taskData={task}
-          editingTask={true}
+          taskData={openTaskSetting ? task : {}}
+          editingTask={openTaskSetting ? true : false}
         />)}
     </div>
 
@@ -137,6 +141,8 @@ const taskType=['PROGRESS','TODO','DONE','BACKLOG']
       </div>
     </div>
   </div>
+  ))}
+  </>
   )
 }
 
