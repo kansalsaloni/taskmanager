@@ -23,6 +23,28 @@
     justify-content: space-between;
     flex-direction: column;
 }
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}  
+.date-picker-overlay {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+.add-task-priority.active-priority{
+    background-color: #eeecec;
+    color:black;
+}
 .add-task-form{
     display: flex;
     flex-direction: column;
@@ -57,7 +79,7 @@
 .add-task-priority-container p{
     font-size: 12px;
     white-space: nowrap;
-    color: gray;
+    color: black;
 }
 .select-priority{
     font-size: 14px;
@@ -89,21 +111,21 @@
     font-weight: bold;
     font-size: 14px;
 }
-.add-task-assign-container select{
+/* .add-task-assign-container select{
     width: 100%;
     outline: none;
     border: 1px solid rgb(207, 204, 204);
     border-radius: 4px;
     color: gray;
     padding: 0.4rem 1rem;
-}
+} */
 .add-task-checklist-container{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap:10px;
     overflow-y: auto;
-    align-items: flex-start;
+    align-items: flex-start;position: relative;
 }
 .add-task-checklist-container p{
     color:black;
@@ -194,6 +216,7 @@
       color: gray;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 15px;
 }
 .add-task-btns{
     display: flex;
@@ -201,7 +224,7 @@
     margin-top: 0px;
 }
 .add-task-due-date-btn{
-    border: 2px solid gray;
+    border: 1px solid gray;
     padding:10px;
     border-radius: 8px;
     color: gray;
@@ -222,3 +245,97 @@
     gap:15px;
     
 }
+.add-task-assign-container {
+    position: relative;
+  }
+  
+  .custom-dropdown {
+    width: 100%;
+    position: relative;
+    border: 1.5px solid rgb(207, 204, 204);
+    border-radius: 8px;
+    color: gray;
+    padding: 0.4rem 1rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:35px
+  }
+  
+  .add-task-assign-container {
+    position: relative;
+  }
+  
+  .custom-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+  
+  .dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    position: relative;
+  }
+  
+  .dropdown-icon {
+    font-size: 1em;
+    color: #555;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    left: 75px; 
+    align-content: flex-end;
+    align-items: flex-end;
+    text-align: end;
+    width: 84%; /* Match the width of the custom dropdown */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    padding: 0.5rem 0;
+    z-index: 2000; /* Ensure it appears above other elements */
+    max-height: 200px; /* Optional: Limit height */
+    overflow-y: auto; /* Enable scrolling if necessary */
+}
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2001;
+}
+
+  
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .assign-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.85em;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  
+  .assign-btn:hover {
+    background-color: #0056b3;
+  }
+  

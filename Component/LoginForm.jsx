@@ -54,7 +54,7 @@ function LoginForm({setShowRegisterForm,showRegisterForm}) {
         const response = await loginUser(loginFormData);
         localStorage.setItem('token', response.token);
         alert('login successfully');
-        console.log('done login')
+        console.log(response.token)
         navigate('/dashboard');
       }catch(err)
       {

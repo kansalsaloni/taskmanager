@@ -7,9 +7,13 @@ import TaskCard from './TaskCard';
 import AddTaskModel from './AddTaskModel';
 
 
-function DashboardCards({title,task}) {
+function DashboardCards({title,task,updateTaskType}) {
 const [addTaskModal, setAddTaskModal] = useState(false);
+const [collapseAllChecklists, setCollapseAllChecklists] = useState(false);
 
+const handleCollapseAll = () => {
+  setCollapseAllChecklists(prevState => !prevState);
+};
   return (
     <div className='cards-container'>
       <div className='cards-title-container'>
@@ -22,13 +26,15 @@ const [addTaskModal, setAddTaskModal] = useState(false);
            onClick={()=>setAddTaskModal(true)}
          />  
           )}
-          <VscCollapseAll size={25} fill="gray" />
+          <VscCollapseAll size={25} fill="gray"  onClick={handleCollapseAll}
+            style={{ cursor: 'pointer' }}/>
 
             </div>
 
 {addTaskModal&&(<AddTaskModel
           addTaskModal={addTaskModal}
           setAddTaskModal={setAddTaskModal}
+          editingTask={false}
         />)}
       </div>
 
@@ -38,7 +44,9 @@ const [addTaskModal, setAddTaskModal] = useState(false);
       >
         {/* <TaskCard task={task}/> */}
         {task?.map((task) => (
-          <TaskCard key={task._id} task={task} />
+          <TaskCard key={task._id} task={task}   addTaskModal={addTaskModal}
+          setAddTaskModal={setAddTaskModal} collapseAllChecklists={collapseAllChecklists}
+          updateTaskType={updateTaskType}/>
         ))}
       </div>
     </div>

@@ -11,46 +11,70 @@ function Dashboard() {
     const year = new Date().getFullYear();
     const [currentPeriod, setCurrentPeriod] = useState("week");
     const [openAddPeopleModel,setOpenAddPeopleModel]=useState(false)
-    const tasksValue = {
+    const [tasksValue, setTasksValue] = useState({
         backlog: [
           {
-            title: 'Task 1',
+            type:'BACKLOG',
+            title: 'Task 1 dnsjdnsjnd nejwfwfewr hiuwerhewuyrewfd ncjdhcksdsdf bkjcbkjbcdkjc',
             priority: 'low',
             checklist: { done: 1, total: 3 },
-            dueDate: '10 Jan 2024',
+            dueDate: '10 Jan',
+            assignedTo:'salonikansal@gmail.com'
           },
-          {
+          {   type:'BACKLOG',
             title: 'Task 2',
             priority: 'high',
             checklist: { done: 2, total: 5 },
-            dueDate: '15 Jan 2024',
+            dueDate: '15 Jan',
           },
         ],
         todo: [
           {
+            type:'TO DO',
             title: 'Task 3',
-            priority: 'medium',
+            priority: 'moderate',
             checklist: { done: 0, total: 4 },
-            dueDate: '12 Jan 2024',
+            dueDate: '12 Jan',
           },
         ],
         progress: [
           {
+            type:'PROGRESS',
             title: 'Task 4',
             priority: 'high',
             checklist: { done: 1, total: 1 },
-            dueDate: '20 Jan 2024',
+            dueDate: '20 Nov 2024',
           },
         ],
         done: [
           {
+            type:'DONE',
             title: 'Task 5',
             priority: 'low',
             checklist: { done: 3, total: 3 },
-            dueDate: '9 Jan 2024',
+            dueDate: '11 Nov 2024',
           },
         ],
-      };
+      });
+    
+      const updateTaskType = (task, newType) => {
+        const taskCategory = task.type;
+        const newCategory = newType;
+
+        setTasksValue(prevTasks => {
+             const updatedCurrentCategory = prevTasks[taskCategory].filter(t => t.id !== task.id);
+             
+            const updatedTask = { ...task, type: newType };
+            const updatedNewCategory = [...prevTasks[newCategory], updatedTask];
+            
+            return {
+                ...prevTasks,
+                 [taskCategory]: updatedCurrentCategory,
+                [newCategory]: updatedNewCategory
+            };
+        });
+    };
+
   return (
     <div className='dashboard-container'>
     <div className='welcome-container'>
@@ -85,10 +109,10 @@ function Dashboard() {
     </div>
 
     <div className='cards'>
-      <DashboardCards title="Backlog" task={tasksValue.backlog} />
-      <DashboardCards title="To do" task={tasksValue.todo} />
-      <DashboardCards title="In progress" task={tasksValue.progress} />
-      <DashboardCards title="Done" task={tasksValue.done} />
+      <DashboardCards title="Backlog" task={tasksValue.backlog} updateTaskType={updateTaskType}/>
+      <DashboardCards title="To do" task={tasksValue.todo} updateTaskType={updateTaskType}/>
+      <DashboardCards title="In progress" task={tasksValue.progress} updateTaskType={updateTaskType}/>
+      <DashboardCards title="Done" task={tasksValue.done} updateTaskType={updateTaskType}/>
     </div>
   </div>
   )

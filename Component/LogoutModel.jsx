@@ -1,15 +1,26 @@
 import React from 'react'
 import '../Style/LogoutModelStyle.css';
 import { useNavigate } from 'react-router-dom';
+import { deleteTask } from '../services/taskServices';
 
 
-function LogoutModel({openLogoutPopup,setOpenLogoutPopup,title}) {
+function LogoutModel({openLogoutPopup,setOpenLogoutPopup,title,id}) {
   const navigate=useNavigate();
     const handleLogout = async () => {
-      setOpenLogoutPopup(false);
+    
+      if(title==='Delete')
+      {
+        console.log(id)
+        await deleteTask(id);
+        alert('delete succss');
+        setOpenLogoutPopup(!openLogoutPopup);
+      }
+      else{
+        setOpenLogoutPopup(!openLogoutPopup);
       localStorage.removeItem('token');
-alert('logout successfluuy')     ;
+    alert('logout successfluuy')     ;
  navigate('/');
+      }
     }
   return (
     <div className='logout-container-overlay'>

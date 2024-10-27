@@ -1,24 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Style/TaskCardStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle,faChevronDown, faChevronUp,faEllipsisH   } from '@fortawesome/free-solid-svg-icons';
 import '../Style/PublicPageStyle.css';
 import LogoutModel from './LogoutModel';
+import AddTaskModel from './AddTaskModel';
 
-function TaskCard({task}) {
+function TaskCard({task,addTaskModal,setAddTaskModal,collapseAllChecklists,updateTaskType }) {
     const [openTaskSetting, setOpenTaskSetting] = useState(false);
     const [openDeleteTaskModal, setOpenDeleteTaskModal] = useState(false);
     const [showChecklistData, setShowChecklistData] = useState(false);
-
+const handleEditTask=(id)=>{
+  console.log(addTaskModal)
+  setAddTaskModal(!addTaskModal)
+}
+useEffect(() => {
+  setShowChecklistData(!collapseAllChecklists);
+}, [collapseAllChecklists]);
+const taskType=['PROGRESS','TO DO','DONE','BACKLOG']
   return (
     <div className='task-card-container'>
     <div className='task-card-priority-container'>
       <div className='task-card-priority'>
-      <FontAwesomeIcon icon={faCircle} style={{color:"#91c5cc" , fontSize:'10px'}}/> 
+      <FontAwesomeIcon icon={faCircle} style={{color:  task.priority === 'low' ? 'green' : 
+      task.priority === 'high' ? 'red' : 
+      task.priority === 'moderate' ? 'blue' : '#eeecec',
+       fontSize:'10px'}}/>
         <p className='task-card-priority-value'>HIGH PRIORITY</p>
         {/* {task?.assignedTo && ( */}
           <p title={task?.assignedTo} className='task-assign-name'>
-           Saloni
+           SA
           </p>
         {/* )} */}
       </div>
@@ -29,14 +40,10 @@ function TaskCard({task}) {
 
 
             />
-
-
       {openTaskSetting && (
         <div className='task-edit-setting'>
-          <p>Edit</p>
-          <p 
-        //   onClick={() => handleShareQuiz(task?._id)}
-            >Share</p>
+          <p onClick={() => handleEditTask(task?._id)}>Edit</p>
+          <p>Share</p>
           <p
             style={{ color: "red" }}
             onClick={() => setOpenDeleteTaskModal(true)}
@@ -49,21 +56,26 @@ function TaskCard({task}) {
   openDeleteTaskModal&&(
     <LogoutModel  openLogoutPopup={openDeleteTaskModal}
     setOpenLogoutPopup={setOpenDeleteTaskModal}
-    title='Delete '/>
+    title='Delete'
+    id={task._id}/>
   )
 }
+{addTaskModal&&(<AddTaskModel
+          addTaskModal={addTaskModal}
+          setAddTaskModal={setAddTaskModal}
+          taskData={task}
+          editingTask={true}
+        />)}
     </div>
 
     <div className='task-title-container'>
       <h1 title={task?.title}>
-       Hero section
+      {task?.title?.length > 20 ? `${task.title.substring(0, 20)}...` : task.title}
       </h1>
 
       <div className='task-checklist-container'>
         <p>
           Checklist (1/3)
-          {/* ({task?.checklist?.reduce((acc, t) => t.checked + acc, 0)}
-          /{task?.checklist?.length}) */}
         </p>
 
         {showChecklistData ? (
@@ -106,20 +118,22 @@ function TaskCard({task}) {
     )}
     <div className='task-card-btns'>
       <div>
-          <button className='due-date-btn'>10 feb</button>
+          <button className='due-date-btn'  style={{
+    backgroundColor: 
+     task.type === 'DONE' ? 'green' :
+      new Date(task.dueDate) < new Date() || task.type === 'BACKLOG' ? 'red' : 'gray',
+  }}>{task.dueDate}</button>
     
       </div>
 
-      <div className='task-type-btns'>
-        {/* {filterType(task?.type)?.map((_) => ( */}
-          <button
-            // key={_}
-            className='task-type-btn'
-            // onClick={() => handleShiftTask(_)}
-          >
-            Progess
-          </button>
-        {/* ))} */}
+      <div className='task-type-btns' >
+      {taskType
+    .filter((type) => type !== task.type)
+    .map((type, index) => (
+      <button key={index} className="task-type-btn" onClick={()=>updateTaskType(task,type)}>
+        {type}
+      </button>
+    ))}
       </div>
     </div>
   </div>
