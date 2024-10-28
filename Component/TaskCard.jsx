@@ -17,9 +17,13 @@ const handleEditTask=(id)=>{
 useEffect(() => {
   setShowChecklistData(!collapseAllChecklists);
 }, [collapseAllChecklists]);
-const taskType=['PROGRESS','TO DO','DONE','BACKLOG']
+
+const taskType=['PROGRESS','TODO','DONE','BACKLOG'];
+
   return (
-    <div className='task-card-container'>
+    <>
+    {task?.map((task) => (
+    <div className='task-card-container' key={task.id}>
     <div className='task-card-priority-container'>
       <div className='task-card-priority'>
       <FontAwesomeIcon icon={faCircle} style={{color:  task.priority === 'low' ? 'green' : 
@@ -37,16 +41,20 @@ const taskType=['PROGRESS','TO DO','DONE','BACKLOG']
               icon={faEllipsisH}
               style={{ fontSize: '20px', cursor: "pointer"  }}
               onClick={() => setOpenTaskSetting(!openTaskSetting)}
-
-
             />
       {openTaskSetting && (
         <div className='task-edit-setting'>
-          <p onClick={() => handleEditTask(task?._id)}>Edit</p>
-          <p>Share</p>
+          <p onClick={() =>{ 
+            handleEditTask(task?._id);}
+            }>Edit</p>
+          <p   onClick={() => {
+              setOpenTaskSetting(!openTaskSetting)
+            }}>Share</p>
           <p
             style={{ color: "red" }}
-            onClick={() => setOpenDeleteTaskModal(true)}
+            onClick={() => {setOpenDeleteTaskModal(true)
+              setOpenTaskSetting(!openTaskSetting)
+            }}
           >
             Delete
           </p>
@@ -63,14 +71,17 @@ const taskType=['PROGRESS','TO DO','DONE','BACKLOG']
 {addTaskModal&&(<AddTaskModel
           addTaskModal={addTaskModal}
           setAddTaskModal={setAddTaskModal}
-          taskData={task}
-          editingTask={true}
+          taskData={openTaskSetting ? task : {}}
+          editingTask={openTaskSetting ? true : false}
+          openTaskSetting={openTaskSetting}
+          setOpenTaskSetting={setOpenTaskSetting}
         />)}
     </div>
 
     <div className='task-title-container'>
       <h1 title={task?.title}>
-      {task?.title?.length > 20 ? `${task.title.substring(0, 20)}...` : task.title}
+        
+      {task?.title?.length > 50 ? `${task.title.substring(0, 50)}...` : task.title}
       </h1>
 
       <div className='task-checklist-container'>
@@ -82,14 +93,14 @@ const taskType=['PROGRESS','TO DO','DONE','BACKLOG']
             <FontAwesomeIcon
             icon={faChevronDown}
             onClick={() => setShowChecklistData(!showChecklistData)}
-            size={20}
+            size={'sm'}
             className='show-checklist-icon'
           />
         ) : (
             <FontAwesomeIcon
             icon={faChevronUp}
     onClick={() => setShowChecklistData(!showChecklistData)}
-            size={20}
+            size={'sm'}
             className='show-checklist-icon'
           />
         )}
@@ -137,6 +148,8 @@ const taskType=['PROGRESS','TO DO','DONE','BACKLOG']
       </div>
     </div>
   </div>
+  ))}
+  </>
   )
 }
 

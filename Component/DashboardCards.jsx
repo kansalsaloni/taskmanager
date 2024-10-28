@@ -30,26 +30,23 @@ const handleCollapseAll = () => {
             style={{ cursor: 'pointer' }}/>
 
             </div>
-
-{addTaskModal&&(<AddTaskModel
+      </div>
+      {/* {addTaskModal&&(<AddTaskModel
           addTaskModal={addTaskModal}
           setAddTaskModal={setAddTaskModal}
+          taskData={{}} 
           editingTask={false}
-        />)}
-      </div>
-
+        />)} */}
       <div
         className='tasks-container'
-        style={{ overflowY: "auto", height: "100%", paddingRight: "1rem" }}
-      >
-        {/* <TaskCard task={task}/> */}
-        {task?.map((task) => (
-          <TaskCard key={task._id} task={task}   addTaskModal={addTaskModal}
+        style={{ overflowY: "auto", height: "100%", paddingRight: "1rem" }} >
+        <TaskCard task={task}  addTaskModal={addTaskModal}
           setAddTaskModal={setAddTaskModal} collapseAllChecklists={collapseAllChecklists}
-          updateTaskType={updateTaskType}/>
-        ))}
+          updateTaskType={updateTaskType} />
       </div>
+     
     </div>
+    
   )
 }
 
